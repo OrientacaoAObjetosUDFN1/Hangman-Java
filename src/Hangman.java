@@ -1,5 +1,7 @@
 package src;
-import javax.swing.*;
+
+public class Hangman {
+    import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -22,9 +24,11 @@ public class Hangman extends JFrame {
         palavraSorteada = palavras[(int)(Math.random()*palavras.length)];
         this.esconderPalavra();
         JPanel pn = new JPanel();
+        JPanel pn2 = new JPanel();
         pn.setLayout(new GridLayout(1,2));
         lbEscondida = new JLabel(palavraEscondida);
-        pn.add(new JLabel());
+        pn.add(new JLabel(), BorderLayout.CENTER);
+        pn2.add(new JLable(), BorderLayout.SOUTH);
         pn.add(lbEscondida);
         this.add(pn);
         this.setVisible(true);
@@ -94,4 +98,5 @@ public class Hangman extends JFrame {
         new Hangman();
     }
 
+}
 }
