@@ -1,7 +1,6 @@
 package src;
 
-public class Hangman {
-    import javax.swing.*;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -16,6 +15,9 @@ public class Hangman extends JFrame {
     private String palavraEscondida;
     private JLabel lbEscondida;
 
+    private JTextField tfLetra = new JTextField("",3);
+    private JButton btOK = new JButton("OK");
+
     public Hangman() {
         this.setTitle("Enforcado");
         this.setSize(600,400);
@@ -24,13 +26,39 @@ public class Hangman extends JFrame {
         palavraSorteada = palavras[(int)(Math.random()*palavras.length)];
         this.esconderPalavra();
         JPanel pn = new JPanel();
-        JPanel pn2 = new JPanel();
         pn.setLayout(new GridLayout(1,2));
         lbEscondida = new JLabel(palavraEscondida);
-        pn.add(new JLabel(), BorderLayout.CENTER);
-        pn2.add(new JLable(), BorderLayout.SOUTH);
+        pn.add(new JLabel());
         pn.add(lbEscondida);
-        this.add(pn);
+
+        JPanel pn2 = new JPanel();
+        pn2.add(tfLetra);
+        pn2.add(btOK);
+
+        btOK.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                char letra = tfLetra.getText().toUpperCase().charAt(0);
+                boolean acertou = verificarLetra(letra);
+                if(acertou) {
+                    substituirTraco(letra);
+                    lbEscondida.setText(palavraEscondida);
+                    if(!palavraEscondida.contains("_")){
+                        JOptionPane.showMessageDialog(Hangman.this, "Parabens");
+                    }
+                }else {
+                    errei ++;
+                    repaint();
+                    if (errei >=6) {
+                        JOptionPane.showMessageDialog(Hangman.this, "Voce perdeu");
+                    }
+                }
+                tfLetra.setText("");
+                tfLetra.requestFocus();
+            }
+        });
+
+        this.add(pn, BorderLayout.CENTER);
+        this.add(pn2, BorderLayout.SOUTH);
         this.setVisible(true);
     }
 
@@ -97,6 +125,5 @@ public class Hangman extends JFrame {
     public static void main(String [] args) {
         new Hangman();
     }
+}
 
-}
-}
