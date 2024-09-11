@@ -3,6 +3,7 @@ package src;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Scanner;
 
 public class Hangman extends JFrame {
 
@@ -18,7 +19,9 @@ public class Hangman extends JFrame {
     private JTextField tfLetra = new JTextField("",3);
     private JButton btOK = new JButton("OK");
 
-    public Hangman() {
+    public Hangman(String [] palavras) {
+        this.setPalavras(palavras);
+        this.setPalavras(palavras);
         this.setTitle("Enforcado");
         this.setSize(600,400);
         this.setResizable(false);
@@ -121,9 +124,29 @@ public class Hangman extends JFrame {
             g.fillOval(200,120,20,30);
         }
     }
+    public String[] getPalavras() {
+        return palavras;
+    }
+
+    public void setPalavras(String[] palavras) {
+        this.palavras = palavras;
+    }
+
+    public static String[] pegarPalavra() {
+        Scanner in = new Scanner(System.in);
+
+        System.out.println("Digite a palavra");
+        String [] palavra = new String[2];
+
+        palavra[1] = in.nextLine();
+
+        in.close();
+
+        return palavra;
+    }
 
     public static void main(String [] args) {
-        new Hangman();
+        new Hangman(pegarPalavra());
     }
 }
 
